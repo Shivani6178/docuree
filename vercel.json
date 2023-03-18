@@ -1,0 +1,29 @@
+{
+    "builds": [
+        {
+            "src": "healthstack/wsgi.py",
+            "use": "@vercel/python",
+            "config": {
+                "maxLambdaSize": "40mb",
+                "runtime": "python3.9"
+            }
+        },
+        {
+            "src": "build_files.sh",
+            "use": "@vercel/python",
+            "config": {
+                "distDir": "staticfiles_build"
+            }
+        }
+    ],
+    "routes": [
+        {
+            "src": "/static/(.*)",
+            "dest": "/static/$1"
+        },
+        {
+            "src": "/(.*)",
+            "dest": "healthstack/wsgi.py"
+        }
+    ]
+}
